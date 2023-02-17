@@ -1,5 +1,6 @@
 const express = require('express')
 const path = require("path")
+var QRCode = require('qrcode')
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
@@ -15,10 +16,8 @@ app.use(express.static('public'))
 
 app.post('/print', upload.single('picture'), function (req, res, next) {
     let img = Buffer.from(req.file.buffer, 'base64').toString('base64');
-    console.log(req.body);
 
     let data = {
-        img: img,
         fname: req.body.firstname.toUpperCase(),
         lname: req.body.lastname.toUpperCase(),
         fathername: req.body.fathername.toUpperCase(),
@@ -33,7 +32,13 @@ app.post('/print', upload.single('picture'), function (req, res, next) {
         contact: req.body.contact,
         zip: req.body.zip
     }
-    res.render('card', {data})
+    QRCode.toDataURL(JSON.stringify(data), function (err, url) {
+        data['qr'] = url.substring(22);
+        console.log(data['qr'])
+        data['img'] = img;
+        res.render('card', {data})
+        console.log(data);
+    })
 });
 
 app.get('/', (req, res) => {
