@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700:900&display=swap" rel="stylesheet">
+    <title>Document</title>
+    <link rel="stylesheet" href="./css/bootstrap.min.css">
+    <style>
+        * {
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 600;
+            print-color-adjust: exact;
+        }
+
+        .card-container {
+            position: relative;
+            width: 2in;
+            height: 3in;
+            background-color: rgba(255, 199, 0, 0.14);
+        }
+
+        .header {
+            height: 0.664in;
+        }
+
+        .footer {
+            height: 0.664in;
+            position: absolute;
+            bottom: 0;
+        }
+
+        .bg-blue {
+            background: #4C4C9D !important;
+        }
+
+        .map {
+            background-image: url("images/front-map.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-x: center;
+        }
+
+        .map-bak {
+            background: linear-gradient(0deg, rgba(246, 238, 210, 0.87), rgba(246, 238, 210, 0.87)), url("images/front-map.png");
+            background-repeat: no-repeat;
+            background-size: contain;
+            background-position-x: center;
+        }
+
+        .pic {
+            background-clip: content-box;
+            background-image: url("data:image/jpeg;base64,<%=data.img%>");
+            background-size: cover;
+            background-position: center;
+            padding: 5px;
+        }
+
+        .qr-code {
+            /* background-clip: content-box; */
+            background-image: url("images/qrcode.svg");
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .bg-pic {
+            background: #E9E7E8;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            width: 80px;
+            height: 80px;
+        }
+
+        .dl-card {
+            background: #D4B12F;
+            box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+            border-radius: 2px;
+            height: 40px;
+            width: 18em;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            padding-left: 5%;
+            align-items: flex-start;
+            z-index: 1;
+            font-weight: 600;
+            font-weight: 600;
+            font-size: 7.42554px;
+            line-height: 9px;
+
+
+            color: #FFFFFF;
+
+            text-shadow: 2px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .address {
+            font-size: 5px;
+            line-height: 6px;
+            text-align: center;
+            bottom: 20%;
+            color: #FFFFFF;
+        }
+
+
+
+        .address-parent {
+            font-size: 7px;
+            line-height: 8px;
+            display: flex;
+            flex-direction: column;
+            /* align-items: start; */
+
+            color: #C34342;
+
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        }
+
+        .address-main-spacing {
+            letter-spacing: 0.16em;
+        }
+
+        .address-sub-spacing {
+            letter-spacing: 0.12em;
+        }
+
+        .name-card {
+            font-weight: 700;
+            font-size: 20px;
+            line-height: 15px;
+            text-align: center;
+            color: #FFFFFF;
+
+        }
+
+        .course-card {
+            font-weight: 500;
+            font-size: 9px;
+            /* line-height: 9px; */
+            text-align: center;
+            letter-spacing: 0.12em;
+            color: #FFFFFF;
+        }
+
+        .father-saluation {
+            font-style: italic;
+            font-weight: 900 !important;
+            /* font-size: 5.65353px;
+line-height: 7px; */
+            /* identical to box height */
+
+            letter-spacing: 0.12em;
+            text-decoration-line: underline;
+        }
+
+        /* .son-of {
+            font-style: italic;
+            font-weight: 900;
+            font-size: 5.65353px;
+            line-height: 7px;
+            /* identical to box height
+
+            letter-spacing: 0.12em;
+            text-decoration-line: underline;
+
+            color: #B03A3A;
+
+            text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        } */
+
+        @media print {
+
+            body,
+            html{
+                width: 100%;
+            }
+
+            button {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container d-flex flex-row justify-content-evenly p-2">
+        <div class="card-container m-1 d-flex flex-column">
+            <span class="w-100 d-flex justify-content-center align-center  header ">
+                <img width="100%" src="images/front-logo.png" alt="mitlogo">
+            </span>
+            <span class="w-100 h-100 bg-blue map flex-column d-flex justify-content-center align-items-center">
+                <span class="bg-pic m-2">
+                    <span class="w-100 h-100 d-flex pic">
+                    </span>
+                </span>
+                <span class="d-flex flex-column align-items-center justify-content-evenly">
+                    <span class="name-card">
+                        <%=data.fname%>
+                            <%=data.lname%>
+                    </span>
+                    <span class="course-card">
+                        <%=data.course%>
+                    </span>
+                    <div class="dl-card mt-2">
+                        <div>
+                            ID NO : <%=data.id%>
+                        </div>
+                        <div>
+                            BRANCH : <%=data.branch%>
+                        </div>
+                        <div>
+                            VALIDITY : <%=data.validity%>
+                        </div>
+                    </div>
+                    <span class="address mt-2">
+                        <div class="address-main-spacing">
+                            MORADABAD INSTIUTE OF TECHNOLOGY
+                        </div>
+                        <div class="address-sub-spacing">
+                            RAM GANGA VIHAR PHASE-II, MORADABAD<br>
+                            Ph. 0591-2452415, 2452327
+                        </div>
+                    </span>
+                </span>
+            </span>
+        </div>
+        <div class="card-container m-1 d-flex flex-column">
+            <span class="w-100 d-flex justify-center align-center  header bg-blue ">
+                <img width="100%" src="images/back-logo.svg" alt="mitlogo">
+            </span>
+            <span class="w-100 h-100 map-bak flex-column d-flex justify-content-start align-items-center">
+                <span class="bg-pic m-2">
+                    <span class="w-100 h-100 d-flex qr-code">
+                    </span>
+                </span>
+                <div class="address d-flex align-items-start flex-column p-2">
+                    <div class="address-parent">
+                        <strong class="father-saluation">S/O <%=data.fathername%></strong>
+                        <%=data.address%><br>
+                            <%=data.city%>-<%=data.zip%>
+                                    <br>
+                                    CONTACT-<%=data.contact%>
+                    </div>
+                </div>
+                <div class="dl-card">
+                    <div>
+                        D.O.B: <%=data.dob%>
+                    </div>
+                    <div>
+                        GENDER : <%=data.gender%>
+                    </div>
+                </div>
+            </span>
+
+            <div class="w-100 d-flex justify-content-center footer bg-blue d-flex align-items-center">
+
+                <span class="address position-absolute">
+                    <div class="address-main-spacing">
+                        MORADABAD INSTIUTE OF TECHNOLOGY
+                    </div>
+                    <div class="address-sub-spacing">
+                        RAM GANGA VIHAR PHASE-II, MORADABAD<br>
+                        Ph. 0591-2452415, 2452327
+                </span>
+            </div>
+        </div>
+
+    </div>
+    </div>
+    <button type="submit" onclick="window.print();" class="btn btn-primary mt-2">Print</button>
+
+
+</body>
+
+</html>
