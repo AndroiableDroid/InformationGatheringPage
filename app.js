@@ -5,14 +5,14 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.set('views', __dirname + '/views');
 app.set('view engine', 'ejs');
 app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist/css")));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static('public'))
+app.use(express.static(__dirname + "/public/"));
 
 app.post('/print', upload.single('picture'), function (req, res, next) {
     let img = Buffer.from(req.file.buffer, 'base64').toString('base64');
@@ -48,3 +48,5 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
     console.log(`Example app listening on port ${port}`)
 })
+
+module.exports = app;

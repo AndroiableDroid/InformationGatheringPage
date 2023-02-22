@@ -13,6 +13,9 @@ You may also see any lint errors in the console.
 * Generates Identity card's Front & Back for Moradabad Institute of Technology
 * Generates QR for the same containing information of it.
 
+### Live Demo
+> [Demo](https://information-gathering-page.vercel.app/)
+
 ## `This currently doesn't support any kind of validation`
 
 ### TODO
