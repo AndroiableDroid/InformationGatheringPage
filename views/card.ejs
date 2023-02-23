@@ -8,16 +8,18 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700:900&display=swap" rel="stylesheet">
-    <title>Document</title>
+    <title><%=data.id%></title>
     <link rel="stylesheet" href="./css/bootstrap.min.css">
     <style>
         * {
             font-family: 'Inter', sans-serif;
             font-style: normal;
             font-weight: 600;
-    -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
-    print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
-}
+            -webkit-print-color-adjust: exact !important;
+            /* Chrome, Safari 6 – 15.3, Edge */
+            print-color-adjust: exact !important;
+            /* Firefox 97+, Safari 15.4+ */
+        }
 
         .card-container {
             position: relative;
@@ -185,7 +187,8 @@ line-height: 7px; */
                 width: 100%;
             }
 
-            button, a {
+            button,
+            a {
                 display: none !important;
             }
         }
@@ -193,96 +196,96 @@ line-height: 7px; */
 </head>
 
 <body>
-        <div class="container d-flex flex-row p-2 justify-content-evenly">
-            <div>
-                <div class="card-container m-1 d-flex flex-column">
-                    <span class="w-100 d-flex justify-content-center align-center  header ">
-                        <img height="100%" src="images/front-logo.png" alt="mitlogo">
-                    </span>
-                    <span class="w-100 h-100 bg-blue map flex-column d-flex justify-content-center align-items-center">
-                        <span class="bg-pic m-2">
-                            <span class="w-100 h-100 d-flex pic">
-                            </span>
-                        </span>
-                        <span class="d-flex flex-column align-items-center justify-content-evenly">
-                            <span class="name-card">
-                                <%=data.fname%>
-                                    <%=data.lname%>
-                            </span>
-                            <span class="course-card">
-                                <%=data.course%>
-                            </span>
-                            <div class="dl-card mt-2">
-                                <div>
-                                    ID NO : <%=data.id%>
-                                </div>
-                                <div>
-                                    BRANCH : <%=data.branch%>
-                                </div>
-                                <div>
-                                    VALIDITY : <%=data.validity%>
-                                </div>
-                            </div>
-                            <span class="address mt-2">
-                                <div class="address-main-spacing">
-                                    MORADABAD INSTIUTE OF TECHNOLOGY
-                                </div>
-                                <div class="address-sub-spacing">
-                                    RAM GANGA VIHAR PHASE-II, MORADABAD<br>
-                                    Ph. 0591-2452415, 2452327
-                                </div>
-                            </span>
+    <div class="container d-flex flex-row p-2 justify-content-evenly">
+        <div>
+            <div class="card-container m-1 d-flex flex-column">
+                <span class="w-100 d-flex justify-content-center align-center  header ">
+                    <img height="100%" src="images/front-logo.png" alt="mitlogo">
+                </span>
+                <span class="w-100 h-100 bg-blue map flex-column d-flex justify-content-center align-items-center">
+                    <span class="bg-pic m-2">
+                        <span class="w-100 h-100 d-flex pic">
                         </span>
                     </span>
-                </div>
-                <button type="submit" onclick="window.print();" class="w-100 btn btn-primary mt-2">Print</button>
-            </div>
-            <div>
-                <div class="card-container m-1 d-flex flex-column">
-                    <span class="w-100 d-flex justify-content-center align-items-center header bg-blue ">
-                        <img height="100%" src="images/back-logo.png" alt="mitlogo">
-                    </span>
-                    <span class="w-100 h-100 map-bak flex-column d-flex justify-content-start align-items-center">
-                        <span class="bg-pic m-2">
-                            <span class="w-100 h-100 d-flex qr-code">
-                            </span>
+                    <span class="d-flex flex-column align-items-center justify-content-evenly">
+                        <span class="name-card">
+                            <%=data.fname%>
+                                <%=data.lname%>
                         </span>
-                        <div class="address d-flex align-items-start flex-column p-2">
-                            <div class="address-parent">
-                                <strong class="father-saluation">S/O <%=data.fathername%></strong>
-                                <%=data.address%><br>
-                                    <%=data.city%>-<%=data.zip%>
-                                            <br>
-                                            CONTACT-<%=data.contact%>
-                            </div>
-                        </div>
-                        <div class="dl-card w-50 p-0 align-items-center">
+                        <span class="course-card">
+                            <%=data.course%>
+                        </span>
+                        <div class="dl-card mt-2">
                             <div>
-                                D.O.B: <%=data.dob%>
+                                ID NO : <%=data.id%>
                             </div>
                             <div>
-                                GENDER : <%=data.gender%>
+                                BRANCH : <%=data.branch%>
+                            </div>
+                            <div>
+                                VALIDITY : <%=data.validity%>
                             </div>
                         </div>
-                    </span>
-
-                    <div class="w-100 d-flex justify-content-center footer bg-blue d-flex align-items-center">
-
-                        <span class="address position-absolute">
+                        <span class="address mt-2">
                             <div class="address-main-spacing">
                                 MORADABAD INSTIUTE OF TECHNOLOGY
                             </div>
                             <div class="address-sub-spacing">
                                 RAM GANGA VIHAR PHASE-II, MORADABAD<br>
                                 Ph. 0591-2452415, 2452327
+                            </div>
                         </span>
-                    </div>
-                </div>
-
+                    </span>
+                </span>
             </div>
-            <a href="data:jpg/image;base64,<%=data.qr%>" download="<%=data.id%>.png"
-                class=" w-100 btn btn-primary mt-2">Download QR</a>
+            <button type="submit" onclick="window.print();" class="w-100 btn btn-primary mt-2">Print</button>
         </div>
+        <div>
+            <div class="card-container m-1 d-flex flex-column">
+                <span class="w-100 d-flex justify-content-center align-items-center header bg-blue ">
+                    <img height="100%" src="images/back-logo.png" alt="mitlogo">
+                </span>
+                <span class="w-100 h-100 map-bak flex-column d-flex justify-content-start align-items-center">
+                    <span class="bg-pic m-2">
+                        <span class="w-100 h-100 d-flex qr-code">
+                        </span>
+                    </span>
+                    <div class="address d-flex align-items-start flex-column p-2">
+                        <div class="address-parent">
+                            <strong class="father-saluation">S/O <%=data.fathername%></strong>
+                            <%=data.address%>,
+                                <%=data.city%>-<%=data.zip%>
+                                        <br>
+                                        CONTACT-<%=data.contact%>
+                        </div>
+                    </div>
+                    <div class="dl-card w-50 p-0 align-items-center">
+                        <div>
+                            D.O.B: <%=data.dob%>
+                        </div>
+                        <div>
+                            GENDER : <%=data.gender%>
+                        </div>
+                    </div>
+                </span>
+
+                <div class="w-100 d-flex justify-content-center footer bg-blue d-flex align-items-center">
+
+                    <span class="address position-absolute">
+                        <div class="address-main-spacing">
+                            MORADABAD INSTIUTE OF TECHNOLOGY
+                        </div>
+                        <div class="address-sub-spacing">
+                            RAM GANGA VIHAR PHASE-II, MORADABAD<br>
+                            Ph. 0591-2452415, 2452327
+                    </span>
+                </div>
+            </div>
+
+        </div>
+        <a href="data:jpg/image;base64,<%=data.qr%>" download="<%=data.id%>.png"
+            class=" w-100 btn btn-primary mt-2">Download QR</a>
+    </div>
     </div>
 
 

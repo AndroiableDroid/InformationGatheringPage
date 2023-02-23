@@ -1,17 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
+  <title>MIT</title>
   <link rel="stylesheet" href="./css/bootstrap.min.css">
   <style>
     input {
-      text-transform:uppercase;
+      text-transform: uppercase;
     }
   </style>
 </head>
+
 <body>
   <div class="container flex justify-center align-center">
 
@@ -19,77 +21,81 @@
       <h1>Information Gathering Page</h1>
     </div>
     <form method="post" enctype="multipart/form-data" action="/print">
+      <div class="form-row">
+        <div class="row">
+          <div class="col">
+            <label for="firstname">First Name</label>
+            <input autocapitalize="on" type="text" class="form-control" name="firstname" id="firstName" placeholder="Ex. Mohd" required>
+          </div>
+          <div class="col">
+            <label for="lastname">First Name</label>
+            <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Ex. Faraz" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="id">Student No.</label>
+            <input type="number" class="form-control" name="id" id="id" placeholder="Ex. 200110188" required>
+          </div>
+          <div class="col">
+            <label for="dateofbirth">Date of Birth</label>
+            <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Ex. 13.11.2000" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="gender">Gender</label>
+            <select class="form-control" name="gender" id="gender" required>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
+            </select>
+          </div>
+          <div class="col">
+            <label for="branch">Branch</label>
+            <input type="text" class="form-control" name="branch" id="branch" placeholder="Ex. CSE" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="contact">Contact</label>
+            <input type="text" class="form-control" minlength="10" maxlength="10" name="contact" id="contac" placeholder="Ex. 97XXXXXXXX" required>
+          </div>
+          <div class="col">
+            <label for="validity">Validity</label>
+            <input type="date" class="form-control" name="validity" id="validity" placeholder="Ex. 03-MAY-2024" required>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="fathername">Father's Name</label>
+            <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Father's Name" required>
+          </div>
+          <div class="col">
+            <label for="course">Course + Tenure</label>
+            <input type="text" class="form-control" name="course" id="course" placeholder="Ex. B.Tech (2020-2024)" required>
+          </div>
+        </div>
         <div class="form-row">
-          <div class="row">
-            <div class="col">
-              <label for="firstname">First Name</label>
-              <input autocapitalize="on" type="text" class="form-control" name="firstname" id="firstName" placeholder="Ex. Mohd">
-            </div>
-            <div class="col">
-              <label for="lastname">First Name</label>
-              <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Ex. Faraz">
-            </div>
+          <label for="address">Address</label>
+          <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
+        </div>
+        <div class="row">
+          <div class="col">
+            <label for="city">City</label>
+            <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
           </div>
-          <div class="row">
-            <div class="col">
-              <label for="id">Student No.</label>
-              <input type="number" class="form-control" name="id" id="id" placeholder="Ex. 200110188">
-            </div>
-            <div class="col">
-              <label for="dateofbirth">Date of Birth</label>
-              <input type="text" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Ex. 13.11.2000">
-            </div>
+          <div class="col">
+            <label for="zip">Zip</label>
+            <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip" required>
           </div>
-          <div class="row">
-            <div class="col">
-              <label for="gender">Gender</label>
-              <input type="text" class="form-control" name="gender" id="gender" placeholder="Ex. Male">
-            </div>
-            <div class="col">
-              <label for="branch">Branch</label>
-              <input type="text" class="form-control" name="branch" id="branch" placeholder="Ex. CSE">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <label for="contact">Contact</label>
-              <input type="text" class="form-control" name="contact" id="contac" placeholder="Ex. 97XXXXXXXX">
-            </div>
-            <div class="col">
-              <label for="validity">Validity</label>
-              <input type="text" class="form-control" name="validity" id="validity" placeholder="Ex. 03-MAY-2024">
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <label for="fathername">Father's Name</label>
-              <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Father's Name">
-            </div>
-            <div class="col">
-              <label for="course">Course + Tenure</label>
-              <input type="text" class="form-control" name="course" id="course" placeholder="Ex. B.Tech (2020-2024)">
-            </div>
-          </div>
-          <div class="form-row">
-              <label for="address">Address</label>
-              <input type="text" class="form-control" name="address" id="address" placeholder="Address">
-          </div>
-          <div class="row">
-            <div class="col">
-              <label for="city">City</label>
-              <input type="text" class="form-control" name="city" id="city" placeholder="City">
-            </div>
-            <div class="col">
-              <label for="zip">Zip</label>
-              <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip">
-            </div>
-          </div>
+        </div>
         <div class="row">
           <label for="picture">Select Picture</label>
-          <input type="file" name="picture" class="form-control-file" id="picture">
+          <input type="file" name="picture" class="form-control-file" id="picture" required>
         </div>
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
-      </form>
+    </form>
   </div>
 </body>
+
 </html>
