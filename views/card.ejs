@@ -15,8 +15,9 @@
             font-family: 'Inter', sans-serif;
             font-style: normal;
             font-weight: 600;
-            print-color-adjust: exact;
-        }
+    -webkit-print-color-adjust: exact !important;   /* Chrome, Safari 6 – 15.3, Edge */
+    print-color-adjust: exact !important;           /* Firefox 97+, Safari 15.4+ */
+}
 
         .card-container {
             position: relative;
@@ -37,6 +38,10 @@
 
         .bg-blue {
             background: #4C4C9D !important;
+        }
+
+        .bg-blue img {
+            filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
         }
 
         .map {
@@ -192,7 +197,7 @@ line-height: 7px; */
             <div>
                 <div class="card-container m-1 d-flex flex-column">
                     <span class="w-100 d-flex justify-content-center align-center  header ">
-                        <img width="100%" src="images/front-logo.png" alt="mitlogo">
+                        <img height="100%" src="images/front-logo.png" alt="mitlogo">
                     </span>
                     <span class="w-100 h-100 bg-blue map flex-column d-flex justify-content-center align-items-center">
                         <span class="bg-pic m-2">
@@ -234,8 +239,8 @@ line-height: 7px; */
             </div>
             <div>
                 <div class="card-container m-1 d-flex flex-column">
-                    <span class="w-100 d-flex justify-center align-center  header bg-blue ">
-                        <img width="100%" src="images/back-logo.svg" alt="mitlogo">
+                    <span class="w-100 d-flex justify-content-center align-items-center header bg-blue ">
+                        <img height="100%" src="images/back-logo.png" alt="mitlogo">
                     </span>
                     <span class="w-100 h-100 map-bak flex-column d-flex justify-content-start align-items-center">
                         <span class="bg-pic m-2">

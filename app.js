@@ -34,10 +34,8 @@ app.post('/print', upload.single('picture'), function (req, res, next) {
     }
     QRCode.toDataURL(JSON.stringify(data), function (err, url) {
         data['qr'] = url.substring(22);
-        console.log(data['qr'])
         data['img'] = img;
         res.render('card', {data})
-        console.log(data);
     })
 });
 
