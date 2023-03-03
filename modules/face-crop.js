@@ -6,7 +6,11 @@ const fs = require('fs');
 const Log = require('debug')("facecrop");
 
 const process = (options) => new Promise((resolve, reject) => {
-    if (!options.src || !options.dst) return reject(new Error('"src" and "dst" options required'))
+    if (options.outImage === true) {
+        if (!options.src || !options.dst) return reject(new Error('"src" and "dst" options required'));
+    }
+
+    if (!options.src) return reject(new Error("src options is required"));
 
     options = Object.assign({
         scale: 1,
@@ -89,12 +93,13 @@ const process = (options) => new Promise((resolve, reject) => {
         outCtx.imageSmoothingEnabled = true;
 
         outCtx.drawImage(img, X, Y, width, height, 0, 0, outWidth, outHeight);
-
-        let out = fs.createWriteStream(options.dst.path);
-
-        out.on('finish', () => resolve(options.dst.path));
-
-        outCanvas.pngStream().pipe(out);
+        if (options.outImage === true) {
+            let out = fs.createWriteStream(options.dst.path);
+            out.on('finish', () => resolve(options.dst.path));
+            outCanvas.pngStream().pipe(out);
+        } else {
+            resolve(outCanvas.toDataURL());
+        }
     };
     img.src = options.src;
 });
