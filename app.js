@@ -18,27 +18,26 @@ app.post('/print', upload.single('picture'), function (req, res, next) {
     let img = Buffer.from(req.file.buffer, 'base64').toString('base64');
     const formatDate = (data) => {
         let date = data.split('-');
-        return date[2] + '-' + date[1] + '-' + date[0];
+        return date[2] + '.' + date[1] + '.' + date[0];
     }
 
     let data = {
         fname: req.body.firstname.toUpperCase(),
         lname: req.body.lastname.toUpperCase(),
         fathername: req.body.fathername.toUpperCase(),
-        id: req.body.id,
+        id: req.body.id.toUpperCase(),
         dob: formatDate(req.body.dateofbirth),
+        batch: req.body.batch,
         branch: req.body.branch.toUpperCase(),
         gender: req.body.gender.toUpperCase(),
-        course: req.body.course.toUpperCase(),
         address: req.body.address.toUpperCase(),
         city: req.body.city.toUpperCase(),
-        validity: formatDate(req.body.validity),
         contact: req.body.contact,
         zip: req.body.zip
     }
     QRCode.toDataURL(JSON.stringify(data), function (err, url) {
         data['qr'] = url.substring(22);
-        data['img'] = img;
+        data['img'] = 'data:image/png;base64,' + img;
         res.render('card', {data})
     })
 });
