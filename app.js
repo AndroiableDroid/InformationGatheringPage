@@ -4,7 +4,7 @@ var QRCode = require('qrcode')
 var bodyParser = require('body-parser');
 var multer = require('multer');
 var upload = multer();
-const app = express()
+const app = express();
 const port = process.env.PORT || 3000
 
 app.set('views', __dirname + '/views');
@@ -13,9 +13,24 @@ app.use("/css", express.static(path.join(__dirname, "node_modules/bootstrap/dist
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + "/public/"));
+const FC = require('./modules/face-crop');
 
 app.post('/print', upload.single('picture'), function (req, res, next) {
     let img = Buffer.from(req.file.buffer, 'base64').toString('base64');
+    FC({
+        src: 'data:image/jpg;base64,' + img,
+        dst: {
+            width: 1000,
+            height: 1000
+        },
+        outImage: false,
+        scale: 3
+    }).then(data => {
+        // console.log(data)
+        img = data;
+    }).catch(e => {
+        // alert("Hello");
+    });
     const formatDate = (data) => {
         let date = data.split('-');
         return date[2] + '.' + date[1] + '.' + date[0];
@@ -37,7 +52,7 @@ app.post('/print', upload.single('picture'), function (req, res, next) {
     }
     QRCode.toDataURL(JSON.stringify(data), function (err, url) {
         data['qr'] = url.substring(22);
-        data['img'] = 'data:image/png;base64,' + img;
+        data['img'] = img;
         res.render('card', {data})
     })
 });
