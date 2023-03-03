@@ -1,5 +1,5 @@
-var cascade = require('./cascade.js'),
-    Canvas  = require('canvas');
+const cascade = require('./cascade.js');
+const {createCanvas} = require('canvas');
 
 function get_named_arguments(params, names) {
   if (params.length > 1) {
@@ -21,7 +21,7 @@ var ccv = module.exports = exports = {
     var imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
     var input = imageData.data;
     
-    var result = new Canvas(canvas.width, canvas.height);
+    var result = createCanvas(canvas.width, canvas.height);
     var r_ctx = result.getContext("2d");
     var r_imageData = r_ctx.getImageData(0, 0, canvas.width, canvas.height);
     var output = r_imageData.data;
@@ -139,7 +139,7 @@ var ccv = module.exports = exports = {
              "data" : pyr[0].getContext("2d").getImageData(0, 0, pyr[0].width, pyr[0].height).data };
       var i;
       for (i = 1; i <= interval; i++) {
-        pyr[i * 4] = new Canvas(
+        pyr[i * 4] = createCanvas(
           Math.floor(pyr[0].width / Math.pow(scale, i)),
           Math.floor(pyr[0].height / Math.pow(scale, i))
           );
@@ -149,7 +149,7 @@ var ccv = module.exports = exports = {
                  "data" : pyr[i * 4].getContext("2d").getImageData(0, 0, pyr[i * 4].width, pyr[i * 4].height).data };
       }
       for (i = next; i < scale_upto + next * 2; i++) {
-        pyr[i * 4] = new Canvas(
+        pyr[i * 4] = createCanvas(
           Math.floor(pyr[i * 4 - next * 4].width / 2),
           Math.floor(pyr[i * 4 - next * 4].height / 2)
           );
@@ -159,7 +159,7 @@ var ccv = module.exports = exports = {
                  "data" : pyr[i * 4].getContext("2d").getImageData(0, 0, pyr[i * 4].width, pyr[i * 4].height).data };
       }
       for (i = next * 2; i < scale_upto + next * 2; i++) {
-        pyr[i * 4 + 1] = new Canvas(
+        pyr[i * 4 + 1] = createCanvas(
           Math.floor(pyr[i * 4 - next * 4].width / 2),
           Math.floor(pyr[i * 4 - next * 4].height / 2)
           );
@@ -168,7 +168,7 @@ var ccv = module.exports = exports = {
                    "height" : pyr[i * 4 + 1].height,
                    "data" : pyr[i * 4 + 1].getContext("2d").getImageData(0, 0, pyr[i * 4 + 1].width, pyr[i * 4 + 1].height).data };
         
-        pyr[i * 4 + 2] = new Canvas(
+        pyr[i * 4 + 2] = createCanvas(
           Math.floor(pyr[i * 4 - next * 4].width / 2),
           Math.floor(pyr[i * 4 - next * 4].height / 2)
           );
@@ -176,7 +176,7 @@ var ccv = module.exports = exports = {
         ret[i * 4 + 2] = { "width" : pyr[i * 4 + 2].width,
                    "height" : pyr[i * 4 + 2].height,
                    "data" : pyr[i * 4 + 2].getContext("2d").getImageData(0, 0, pyr[i * 4 + 2].width, pyr[i * 4 + 2].height).data };
-        pyr[i * 4 + 3] = new Canvas(
+        pyr[i * 4 + 3] = createCanvas(
           Math.floor(pyr[i * 4 - next * 4].width / 2),
           Math.floor(pyr[i * 4 - next * 4].height / 2)
           );
