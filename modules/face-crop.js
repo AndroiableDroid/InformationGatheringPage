@@ -1,7 +1,7 @@
 "use strict";
 
 const FD = require('./ccv');
-const { createCanvas, Image } = require('canvas');
+const { createCanvas, Image } = require('@napi-rs/canvas');
 const fs = require('fs');
 const Log = require('debug')("facecrop");
 

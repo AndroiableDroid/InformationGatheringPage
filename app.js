@@ -16,19 +16,20 @@ app.use(express.static(__dirname + "/public/"));
 const FC = require('./modules/face-crop');
 
 app.post('/print', upload.single('picture'), function (req, res, next) {
-    let img = Buffer.from(req.file.buffer, 'base64').toString('base64');
+    let img = Buffer.from(req.file.buffer, 'base64');
     FC({
-        src: 'data:image/jpg;base64,' + img,
+        src: img,
         dst: {
             width: 1000,
             height: 1000
         },
         outImage: false,
-        scale: 3
+        scale: 2
     }).then(data => {
         // console.log(data)
         img = data;
     }).catch(e => {
+        console.log(e);
         // alert("Hello");
     });
     const formatDate = (data) => {

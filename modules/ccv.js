@@ -1,5 +1,5 @@
 const cascade = require('./cascade.js');
-const {createCanvas} = require('canvas');
+const {createCanvas} = require('@napi-rs/canvas');
 
 function get_named_arguments(params, names) {
   if (params.length > 1) {
