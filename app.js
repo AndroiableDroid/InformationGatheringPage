@@ -18,35 +18,20 @@ const FC = require('./modules/face-crop');
 app.post('/print', upload.single('picture'), function (req, res, next) {
     let img = Buffer.from(req.file.buffer, 'base64');
     let size = req.file.size / 1000;
+    const formatDate = (data) => {
+        let date = data.split('-');
+        return date[2] + '.' + date[1] + '.' + date[0];
+    }
     if (size > 1024) {
         res.send(
             {
                 img: "Error Image too large (>1 MB)"
             }
-        )
-        return;
-    }
-    FC({
-        src: img,
-        dst: {
-            width: 1000,
-            height: 1000
-        },
-        outImage: false,
-        scale: 2
-    }).then(data => {
-        // console.log(data)
-        img = data;
-    }).catch(e => {
-        console.log(e);
-        // alert("Hello");
-    });
-    const formatDate = (data) => {
-        let date = data.split('-');
-        return date[2] + '.' + date[1] + '.' + date[0];
-    }
-
+            )
+            return;
+        }
     let data = {
+        facefound: false,
         fname: req.body.firstname.toUpperCase(),
         lname: req.body.lastname.toUpperCase(),
         fathername: req.body.fathername.toUpperCase(),
@@ -60,11 +45,30 @@ app.post('/print', upload.single('picture'), function (req, res, next) {
         contact: req.body.contact,
         zip: req.body.zip
     }
-    QRCode.toDataURL(JSON.stringify(data), function (err, url) {
-        data['qr'] = url.substring(22);
-        data['img'] = img;
-        res.render('card', {data})
-    })
+    FC({
+        src: img,
+        dst: {
+            width: 150,
+            height: 150
+        },
+        outImage: false,
+        scale: 2
+    }).then(imgdata => {
+        // console.log(data)
+        data['facefound'] = true;
+        QRCode.toDataURL(JSON.stringify(data), function (err, url) {
+            data['qr'] = url.substring(22);
+            data['img'] = imgdata;
+            // res.send(data);
+            res.render('card', {data})
+        })
+    }).catch(e => {
+        console.log(e);
+        res.send({facefound: false,
+        error: "Face not found in the given picture"});
+        // alert("Hello");
+    });
+
 });
 
 app.get('/', (req, res) => {
