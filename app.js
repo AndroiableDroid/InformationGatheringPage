@@ -17,6 +17,15 @@ const FC = require('./modules/face-crop');
 
 app.post('/print', upload.single('picture'), function (req, res, next) {
     let img = Buffer.from(req.file.buffer, 'base64');
+    let size = req.file.size / 1000;
+    if (size > 1024) {
+        res.send(
+            {
+                img: "Error Image too large (>1 MB)"
+            }
+        )
+        return;
+    }
     FC({
         src: img,
         dst: {
