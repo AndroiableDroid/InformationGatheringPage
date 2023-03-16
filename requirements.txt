@@ -1,7 +1,8 @@
 fastapi
-multipart
+python-multipart
 opencv-python
 numpy
 jinja2
 pyqrcode
 pypng
+uvicorn
