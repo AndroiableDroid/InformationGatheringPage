@@ -33,7 +33,7 @@ def formatDate (date) -> str:
 def getFace(image: bytes) -> str:
     currentSize = len(image) / 1024
     image = np.asarray(bytearray(image), dtype="uint8")
-    image = cv2.imdecode(image  , cv2.IMREAD_COLOR)
+    image = cv2.imdecode(image  , cv2.IMREAD_UNCHANGED)
     qualityRatio = 1 - ((currentSize - 1024) / currentSize)
     if qualityRatio > 0:
         size = (int(image.shape[1] * qualityRatio), int(image.shape[0] * qualityRatio))
@@ -47,7 +47,7 @@ def getFace(image: bytes) -> str:
         face = face[0]
     (x, y, w, h) = face
     face = image[y -MARGIN:y + h +MARGIN, x -MARGIN:x + w +MARGIN]
-    _, buf = cv2.imencode(".jpg", face)
+    _, buf = cv2.imencode(".jpg", face, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
     outimage = BytesIO(buf)
     dataUrl = base64.b64encode(outimage.getvalue()).decode("utf-8")
     return dataUrl
@@ -70,15 +70,14 @@ async def process(request: Request, picture: bytes = File(), firstname: str = Fo
     createQr(params)
 
     params['request'] = request
-    params['img'] = getFace(picture)
-
     try:
-        return views.TemplateResponse("card.html", params)
+        params['img'] = getFace(picture)
     except TypeError:
          return views.TemplateResponse("error.html", {
              "request": request,
              "error": "Face not Found"
          })
+    return views.TemplateResponse("card.html", params)
 
 @app.get("/")
 async def root(request: Request, response_class=HTMLResponse):
