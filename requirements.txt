@@ -1,0 +1,7 @@
+fastapi
+multipart
+opencv-python
+numpy
+jinja2
+pyqrcode
+pypng

@@ -8,10 +8,10 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700:900&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
     <title>
-        <%=data.id%>
+        {{ id }}
     </title>
-    <link rel="stylesheet" href="./css/bootstrap.min.css">
     <style>
         * {
             font-family: 'Inter', sans-serif;
@@ -109,7 +109,7 @@
             float: right;
             width: 35%;
             aspect-ratio: 1;
-            background-image: url("data:image/png;base64,<%=data.qr%>");
+            background-image: url("data:image/png;base64,{{ qr }}");
             background-size: cover;
             background-repeat: no-repeat;
             background-position: center;
@@ -172,7 +172,7 @@
                 <div class="m-2 padding-ctx border h-100 d-flex flex-column align-items-center justify-content-evenly">
                     <div class="header d-flex justify-content-between">
                         <div class="logo-wrapper">
-                            <img src="images/alumni-logo.png" alt="alumni-logo">
+                            <img src="{{ url_for('images', path='alumni-logo.png') }}" alt="alumni-logo">
                         </div>
                         <div class="header-details-wrapper d-flex flex-column align-items-center text-primary">
                             <h2>MIT ALUMNI ASSOCIATION</h2>
@@ -182,12 +182,12 @@
                             <h4>E-mail: alumnimitassociation@gmail.com</h4>
                         </div>
                         <div class="logo-wrapper">
-                            <img src="images/mit-logo.png" alt="mit-logo">
+                            <img src="{{ url_for('images', path='mit-logo.png') }}" alt="mit-logo">
                         </div>
                     </div>
                     <div class="content mt-2 d-flex h-100 d-flex">
                         <div class="picture-wrapper">
-                            <img src=<%=data.img%> alt="profile-pic">
+                            <img src="data:image/jpeg;base64,{{ img }}" alt="profile-pic">
                         </div>
                         <div class="d-flex flex-column w-100 h-100">
                             <div class="center-details-wrapper">
@@ -197,35 +197,35 @@
                                             <h2 class="text-primary">Alumni No</h2>
                                             <h2 class="text-primary"> :&nbsp;</h2>
                                         </div>
-                                      <h2><%=data.id%></h2>
+                                      <h2>{{ id }}</h2>
                                     </div>
                                     <div class="detail-item">
                                         <div class="d-flex justify-content-between">
                                             <h2 class="text-primary">Name</h2>
                                             <h2 class="text-primary"> :&nbsp;</h2>
                                         </div>
-                                      <h2><%=data.fname%> <%=data.lname%></h2>
+                                      <h2>{{ name }}</h2>
                                     </div>
                                     <div class="detail-item">
                                         <div class="d-flex justify-content-between">
                                             <h2 class="text-primary">D.O.B.</h2>
                                             <h2 class="text-primary"> :&nbsp;</h2>
                                         </div>
-                                      <h2><%=data.dob%></h2>
+                                      <h2>{{ dateofbirth }}</h2>
                                     </div>
                                     <div class="detail-item">
                                         <div class="d-flex justify-content-between">
                                             <h2 class="text-primary">Branch</h2>
                                             <h2 class="text-primary"> :&nbsp;</h2>
                                         </div>
-                                        <h2><%=data.branch%></h2>
+                                        <h2>{{ branch }}</h2>
                                     </div>
                                     <div class="detail-item">
                                         <div class="d-flex justify-content-between">
                                             <h2 class="text-primary">Batch</h2>
                                             <h2 class="text-primary"> :&nbsp;</h2>
                                         </div>
-                                        <h2><%=data.batch%></h2>
+                                        <h2>{{ batch }}</h2>
                                     </div>
                                     <div class="detail-item mt-3">
                                         <div class="d-flex justify-content-around w-100">
@@ -246,11 +246,11 @@
             <div class="card-container m-1 d-flex flex-column card">
                 <div class="m-2 padding-ctx border h-100">
                     <div class="address">
-                        <strong class="father-saluation">S/O <%=data.fathername%></strong>
-                        <%=data.address%>,
-                            <%=data.city%>-<%=data.zip%>
+                        <strong class="father-saluation">S/O {{ fathername }}</strong>
+                        {{ address }},
+                            {{ city }}-{{ zip }}
                                     <br>
-                                    <strong>CONTACT-<%=data.contact%></strong>
+                                    <strong>CONTACT-{{ contact }}</strong>
                     </div>
                     <span class="d-flex mt-2 qr-code">
                     </span>
@@ -265,7 +265,7 @@
                     </div>
                 </div>
             </div>
-            <a href="data:jpg/image;base64,<%=data.qr%>" download="<%=data.id%>.png"
+            <a href="data:jpg/image;base64,{{ qr }}" download="{{ id }}.png"
                 class=" w-100 btn btn-primary mt-2">Download QR</a>
         </div>
     </div>

@@ -1,0 +1,1 @@
+MARGIN = 500 # picture margin for face here n there
