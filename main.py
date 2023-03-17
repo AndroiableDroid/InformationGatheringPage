@@ -7,6 +7,7 @@ from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 import cv2
 import numpy as np
+import uvicorn
 
 from constants import MARGIN
 from qr import createQr
@@ -50,6 +51,7 @@ def getFace(image: bytes) -> str:
     _, buf = cv2.imencode(".jpg", face, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
     outimage = BytesIO(buf)
     dataUrl = base64.b64encode(outimage.getvalue()).decode("utf-8")
+    print(len(dataUrl) / 1024)
     return dataUrl
 
 @app.post("/process", response_class=HTMLResponse)
@@ -82,3 +84,8 @@ async def process(request: Request, picture: bytes = File(), firstname: str = Fo
 @app.get("/")
 async def root(request: Request, response_class=HTMLResponse):
         return views.TemplateResponse("form.html", {"request": request})
+
+if __name__ == "__main__":
+    config = uvicorn.Config("main:app", port=10000)
+    server = uvicorn.Server(config)
+    server.run()
