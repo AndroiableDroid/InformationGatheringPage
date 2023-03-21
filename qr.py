@@ -1,6 +1,5 @@
 from pyqrcode import QRCode
-import png
 
-def createQr(data: dict) -> None:
+def createQr(data: dict) -> str:
     url = QRCode(str(data))
-    data['qr'] = url.png_as_base64_str(scale=5)
+    return url.png_as_base64_str(scale=5)

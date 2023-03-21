@@ -6,3 +6,4 @@ jinja2
 pyqrcode
 pypng
 uvicorn
+firebase_admin

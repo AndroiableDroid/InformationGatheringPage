@@ -11,8 +11,11 @@ import uvicorn
 
 from constants import MARGIN
 from qr import createQr
+from firebase import Firestore
 
 app = FastAPI()
+
+firestore= Firestore("firebase-sdk.json")
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 views = Jinja2Templates(directory="views")
@@ -51,8 +54,24 @@ def getFace(image: bytes) -> str:
     _, buf = cv2.imencode(".jpg", face, [int(cv2.IMWRITE_JPEG_QUALITY), 90])
     outimage = BytesIO(buf)
     dataUrl = base64.b64encode(outimage.getvalue()).decode("utf-8")
-    print(len(dataUrl) / 1024)
     return dataUrl
+
+@app.post("/process", response_class=HTMLResponse)
+async def process(request: Request,id: str = Form()):
+    if firestore.IsMemberExists(id) == True:
+        params = firestore.GetMember(id)
+        img = params.pop('img')
+        qr = createQr(params)
+        params['img'] = img
+        params['qr'] = qr
+        params['request'] = request
+
+        return views.TemplateResponse("card.html", params)
+    else:
+        return views.TemplateResponse("error.html", {
+             "request": request,
+             "error": "Member Doesn't Exists"
+         })    
 
 @app.post("/process", response_class=HTMLResponse)
 async def process(request: Request, picture: bytes = File(), firstname: str = Form(),
@@ -69,16 +88,25 @@ async def process(request: Request, picture: bytes = File(), firstname: str = Fo
         elif type(params[i]) == str:
             params[i] = params[i].upper()
     params['name'] = name
-    createQr(params)
+    qr = createQr(params)
 
-    params['request'] = request
     try:
-        params['img'] = getFace(picture)
+        if firestore.IsMemberExists(id) == True:
+            params = firestore.GetMember(id)
+            img = params.pop('img')
+            qr = createQr(params)
+            params['img'] = img
+        else:
+            params['img'] = getFace(picture)
+            firestore.UploadMember(params)
     except TypeError:
          return views.TemplateResponse("error.html", {
              "request": request,
              "error": "Face not Found"
          })
+    params['qr'] = qr
+    params['request'] = request
+
     return views.TemplateResponse("card.html", params)
 
 @app.get("/")

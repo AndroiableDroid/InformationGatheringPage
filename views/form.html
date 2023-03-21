@@ -35,7 +35,7 @@
         <div class="row">
           <div class="col">
             <label for="id">Alumni No.</label>
-            <input type="text" class="form-control" pattern="[sS][0-9]{4}[A-Za-z]{2}[0-9]{4}" maxlength="11" name="id" id="id" placeholder="Ex. 200110188" required>
+            <input type="text" id="id" class="form-control" pattern="[sS][0-9]{4}[A-Za-z]{2}[0-9]{4}" maxlength="11" name="id" id="id" placeholder="Ex. 200110188" required>
           </div>
           <div class="col">
             <label for="dateofbirth">Date of Birth</label>
@@ -85,13 +85,31 @@
             <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip" required>
           </div>
         </div>
-        <div class="row">
-          <label for="picture">Select Picture</label>
-          <input type="file" accept="image/jpeg" name="picture" class="form-control-file" id="picture" required>
+        <div class="row mt-2">
+          <div class="col">
+            <label for="picture">Select Picture</label>
+            <input type="file" accept="image/jpeg" name="picture" class="form-control-file" id="picture" required>
+          </div>
+          <div class="col">
+            <input type="checkbox" id="fetchfrom" onchange="update(event)" required>
+            <label for="datacheckbox">Fetch from Database</label>
+          </div>
         </div>
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
     </form>
   </div>
+  <script>
+    const check = document.getElementById("fetchfrom")
+    check.checked = false;
+    const fields = document.querySelectorAll(".row input, .row select")
+    console.log(fields)
+    const update = (event) => {
+      let isChecked = event.target.checked;
+      for (let el of fields) {
+        if (el.id === "fetchfrom" || el.id === "id") continue
+        el.disabled = isChecked;
+      }
+    }
+  </script>
 </body>
-
 </html>
