@@ -20,14 +20,16 @@
     <div class="container d-flex justify-content-center align-items-center">
       <h1>Information Gathering Page</h1>
     </div>
-    <form method="post" enctype="multipart/form-data" action="/process">
+    <form method="post" enctype="multipart/form-data" action="/process" onsubmit="submit">
       <div class="form-row">
         <div class="row">
           <div class="col">
+            <input type="hidden" name="firstname" id="firstNameHidden" value="something">
             <label for="firstname">First Name</label>
             <input autocapitalize="on" type="text" class="form-control" name="firstname" id="firstName" placeholder="Ex. Mohd" required>
           </div>
           <div class="col">
+            <input type="hidden" name="lastname" id="lastnameHidden" value="something">
             <label for="lastname">First Name</label>
             <input type="text" class="form-control" name="lastname" id="lastname" placeholder="Ex. Faraz" required>
           </div>
@@ -38,12 +40,14 @@
             <input type="text" id="id" class="form-control" pattern="[sS][0-9]{4}[A-Za-z]{2}[0-9]{4}" maxlength="11" name="id" id="id" placeholder="Ex. 200110188" required>
           </div>
           <div class="col">
+            <input type="hidden" name="dateofbirth" id="dateofbirthHidden" value="something">
             <label for="dateofbirth">Date of Birth</label>
             <input type="date" class="form-control" name="dateofbirth" id="dateofbirth" placeholder="Ex. 13.11.2000" required>
           </div>
         </div>
         <div class="row">
           <div class="col">
+            <input type="hidden" name="gender" id="genderHidden" value="something">
             <label for="gender">Gender</label>
             <select class="form-control" name="gender" id="gender" required>
               <option value="male">Male</option>
@@ -51,65 +55,73 @@
             </select>
           </div>
           <div class="col">
+            <input type="hidden" name="branch" id="branchHidden" value="something">
             <label for="branch">Branch</label>
             <input type="text" class="form-control" name="branch" id="branch" placeholder="Ex. CSE" required>
           </div>
         </div>
         <div class="row">
           <div class="col">
+            <input type="hidden" name="contact" id="contactHidden" value="0">
             <label for="contact">Contact</label>
             <input type="text" class="form-control" minlength="10" maxlength="10" name="contact" id="contac" placeholder="Ex. 97XXXXXXXX" required>
           </div>
           <div class="col">
+            <input type="hidden" name="batch" id="batchHidden" value="something">
             <label for="batch">Batch</label>
             <input type="text" pattern="[0-9]{4}-[0-9]{4}" class="form-control" name="batch" id="batch" placeholder="Ex. 2001-2005" required>
           </div>
         </div>
         <div class="row">
           <div class="col">
+            <input type="hidden" name="fathername" id="fathernameHidden" value="something">
             <label for="fathername">Father's Name</label>
             <input type="text" class="form-control" name="fathername" id="fathername" placeholder="Father's Name" required>
           </div>
           <div class="col">
+            <input type="hidden" name="address" id="addressHidden" value="something">
             <label for="address">Address</label>
             <input type="text" class="form-control" name="address" id="address" placeholder="Address" required>
           </div>
         </div>
         <div class="row">
           <div class="col">
+            <input type="hidden" name="city" id="cityHidden" value="something">
             <label for="city">City</label>
             <input type="text" class="form-control" name="city" id="city" placeholder="City" required>
           </div>
           <div class="col">
+            <input type="hidden" name="zip" id="zipHidden" value="0">
             <label for="zip">Zip</label>
             <input type="text" class="form-control" name="zip" id="zip" placeholder="Zip" required>
           </div>
         </div>
         <div class="row mt-2">
           <div class="col">
+            <input type="hidden" name="picture" id="pictureHidden" value="something">
             <label for="picture">Select Picture</label>
             <input type="file" accept="image/jpeg" name="picture" class="form-control-file" id="picture" required>
           </div>
           <div class="col">
-            <input type="checkbox" id="fetchfrom" onchange="update(event)" required>
+            <input id='fetchfromHidden' type='hidden' value="False" name='datacheckbox'>
+            <input type="checkbox" name="datacheckbox" value="True" id="fetchfrom" checked="" onchange="update(event)">
             <label for="datacheckbox">Fetch from Database</label>
           </div>
         </div>
         <button type="submit" class="btn btn-primary mt-2">Submit</button>
     </form>
   </div>
+</body>
   <script>
     const check = document.getElementById("fetchfrom")
     check.checked = false;
     const fields = document.querySelectorAll(".row input, .row select")
-    console.log(fields)
     const update = (event) => {
       let isChecked = event.target.checked;
       for (let el of fields) {
-        if (el.id === "fetchfrom" || el.id === "id") continue
-        el.disabled = isChecked;
+        if (el.id === "fetchfrom" || el.id === "id" || el.type == "hidden") continue
+        el.disabled = isChecked
       }
     }
   </script>
-</body>
 </html>

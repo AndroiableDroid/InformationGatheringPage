@@ -57,53 +57,42 @@ def getFace(image: bytes) -> str:
     return dataUrl
 
 @app.post("/process", response_class=HTMLResponse)
-async def process(request: Request,id: str = Form()):
-    if firestore.IsMemberExists(id) == True:
-        params = firestore.GetMember(id)
-        img = params.pop('img')
-        qr = createQr(params)
-        params['img'] = img
-        params['qr'] = qr
-        params['request'] = request
-
-        return views.TemplateResponse("card.html", params)
-    else:
-        return views.TemplateResponse("error.html", {
-             "request": request,
-             "error": "Member Doesn't Exists"
-         })    
-
-@app.post("/process", response_class=HTMLResponse)
 async def process(request: Request, picture: bytes = File(), firstname: str = Form(),
                    lastname: str = Form(), fathername: str = Form(), id: str = Form(), 
                    dateofbirth: str = Form(), batch: str = Form(), branch: str = Form(),
                    gender: str = Form(), address: str = Form(), city: str = Form(),
-                   contact: int = Form(), zip: int = Form()
+                   contact: int = Form(), zip: int = Form(), datacheckbox: bool = Form()
 ):
-    params = dict(list(locals().items())[4:])
-    name = f"{firstname.upper()} {lastname.upper()}"
-    for i in params:
-        if i == "dateofbirth":
-            params[i] = formatDate(params[i])
-        elif type(params[i]) == str:
-            params[i] = params[i].upper()
-    params['name'] = name
-    qr = createQr(params)
-
-    try:
-        if firestore.IsMemberExists(id) == True:
-            params = firestore.GetMember(id)
-            img = params.pop('img')
-            qr = createQr(params)
-            params['img'] = img
-        else:
+    qr = None
+    if datacheckbox == False:
+        params = dict(list(locals().items())[4:14])
+        name = f"{firstname.upper()} {lastname.upper()}"
+        for i in params:
+            if i == "dateofbirth":
+                params[i] = formatDate(params[i])
+            elif type(params[i]) == str:
+                params[i] = params[i].upper()
+        params['name'] = name
+        qr = createQr(params)
+        try:
             params['img'] = getFace(picture)
             firestore.UploadMember(params)
-    except TypeError:
-         return views.TemplateResponse("error.html", {
-             "request": request,
-             "error": "Face not Found"
-         })
+        except TypeError:
+            return views.TemplateResponse("error.html", {
+                "request": request,
+                "error": "Face not Found"
+            })
+
+    elif firestore.IsMemberExists(id) == False:
+                return views.TemplateResponse("error.html", {
+                    "request": request,
+                    "error": "Member Doesn't Exists"
+                })
+    else:
+        params = firestore.GetMember(id)
+        img = params.pop('img')
+        qr = createQr(params)
+        params['img'] = img
     params['qr'] = qr
     params['request'] = request
 
