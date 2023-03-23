@@ -8,14 +8,18 @@ from fastapi.middleware.cors import CORSMiddleware
 import cv2
 import numpy as np
 import uvicorn
+from os import environ
 
 from constants import MARGIN
 from qr import createQr
 from firebase import Firestore
 
 app = FastAPI()
-
-firestore= Firestore("firebase-sdk.json", doc_name="psykick-data", col_name="mit-alumni")
+firestore = None
+if environ.get("RENDER") == "true":
+    firestore= Firestore(doc_name="psykick-data", col_name="mit-alumni")
+else:
+    firestore= Firestore("firebase-sdk.json", doc_name="psykick-data", col_name="mit-alumni")
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 views = Jinja2Templates(directory="views")

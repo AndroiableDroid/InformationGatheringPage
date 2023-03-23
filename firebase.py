@@ -5,7 +5,7 @@ import json
 import os
 
 class Firestore:
-    def __init__(self, file, doc_name:str, col_name:str) -> None:
+    def __init__(self, doc_name:str, col_name:str, file = None):
         config={}
         if file is None:
             configs = [
