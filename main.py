@@ -15,7 +15,7 @@ from firebase import Firestore
 
 app = FastAPI()
 
-firestore= Firestore("firebase-sdk.json")
+firestore= Firestore("firebase-sdk.json", doc_name="psykick-data", col_name="mit-alumni")
 
 app.mount("/images", StaticFiles(directory="images"), name="images")
 views = Jinja2Templates(directory="views")

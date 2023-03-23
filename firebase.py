@@ -5,7 +5,7 @@ import json
 import os
 
 class Firestore:
-    def __init__(self, file) -> None:
+    def __init__(self, file, doc_name:str, col_name:str) -> None:
         config={}
         if file is None:
             configs = [
@@ -30,8 +30,8 @@ class Firestore:
             cred = credentials.Certificate(config)
             app = firebase_admin.initialize_app(cred)
         db = firestore.client()
-        self.document_name = 'psykick-data'
-        self.collection = db.collection(u'mit-alumni')
+        self.document_name = doc_name
+        self.collection = db.collection(col_name)
         self.doc_ref = self.collection.document(self.document_name)
 
     def UploadMember(self, data: dict):
